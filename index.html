@@ -1,0 +1,732 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0a0908" />
+  <meta name="description" content="A little world made just for you." />
+
+  <title>Project SWE — The Midnight Surprise</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- PASSWORD SCREEN + KISS HINT + VISIBILITY FIX -->
+  <style>
+    /* Screen visibility fallback */
+    .screen {
+      display: none;
+    }
+
+    .screen.active {
+      display: flex;
+    }
+
+    #gate {
+      display: none;
+    }
+
+    #gate.active {
+      display: flex;
+    }
+
+    /* Password hint */
+    .kiss-hint {
+      margin: 26px auto 0;
+      padding: 20px 18px;
+      max-width: 340px;
+      text-align: center;
+      border: 1px solid rgba(210, 180, 150, 0.22);
+      border-radius: 16px;
+      background: linear-gradient(
+        145deg,
+        rgba(255,255,255,0.045),
+        rgba(255,255,255,0.015)
+      );
+      animation: hintFade 1.2s ease both;
+    }
+
+    .kiss-hint-label {
+      margin: 0 0 12px;
+      color: #bca58e;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 9px;
+      letter-spacing: 4px;
+    }
+
+    .kiss-hint-main {
+      margin: 0;
+      color: #ead8c5;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 25px;
+      font-weight: 500;
+    }
+
+    .kiss-hint-description {
+      margin: 8px 0 14px;
+      color: rgba(235, 220, 205, 0.65);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      line-height: 1.8;
+    }
+
+    .kiss-hint-symbols {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 9px;
+      font-size: 19px;
+      margin-top: 12px;
+    }
+
+    .kiss-hint-symbols span {
+      display: inline-block;
+      animation: kissFloat 2.5s ease-in-out infinite;
+    }
+
+    .kiss-hint-symbols span:nth-child(2) {
+      animation-delay: .15s;
+    }
+
+    .kiss-hint-symbols span:nth-child(3) {
+      animation-delay: .3s;
+    }
+
+    .kiss-hint-symbols span:nth-child(4) {
+      animation-delay: .45s;
+    }
+
+    .kiss-hint-symbols span:nth-child(5) {
+      animation-delay: .6s;
+    }
+
+    @keyframes kissFloat {
+      0%, 100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-4px);
+      }
+    }
+
+    @keyframes hintFade {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .kiss-hint {
+        max-width: 290px;
+        padding: 17px 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Background effects -->
+  <div class="grain"></div>
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+
+  <main>
+
+    <!-- ================================= -->
+    <!-- PASSWORD GATE                     -->
+    <!-- ================================= -->
+
+    <section id="gate" class="gate screen active">
+
+      <div class="gate-mark">
+        S <span>✦</span> W E
+      </div>
+
+      <p class="eyebrow">
+        A PRIVATE LITTLE UNIVERSE
+      </p>
+
+      <h1>
+        Some things are<br>
+        <em>only for you.</em>
+      </h1>
+
+      <p class="muted gate-copy">
+        A little surprise has been waiting here.
+      </p>
+
+      <form id="unlock-form" class="unlock-form">
+
+        <label class="sr-only" for="password">
+          Enter password
+        </label>
+
+        <input
+          id="password"
+          type="password"
+          inputmode="numeric"
+          placeholder="Enter the secret code"
+          autocomplete="off"
+          required
+        />
+
+        <button class="button button-gold" type="submit">
+          Unlock the story <span>↗</span>
+        </button>
+
+        <p
+          id="gate-error"
+          class="error"
+          aria-live="polite"
+        ></p>
+
+        <!-- Romantic password hint -->
+
+        <div class="kiss-hint">
+
+          <p class="kiss-hint-label">
+            A LITTLE SECRET
+          </p>
+
+          <h2 class="kiss-hint-main">
+            One kiss is just a hint...
+          </h2>
+
+          <p class="kiss-hint-description">
+            But five kisses unlock<br>
+            this little universe.
+          </p>
+
+          <div
+            class="kiss-hint-symbols"
+            aria-label="Five kisses"
+          >
+            <span>💋</span>
+            <span>💋</span>
+            <span>💋</span>
+            <span>💋</span>
+            <span>💋</span>
+          </div>
+
+        </div>
+
+      </form>
+
+      <span class="gate-foot">
+        MADE WITH A LITTLE TOO MUCH LOVE
+      </span>
+
+    </section>
+
+
+    <!-- ================================= -->
+    <!-- WELCOME                           -->
+    <!-- ================================= -->
+
+    <section id="welcome" class="screen welcome">
+
+      <nav class="topbar">
+
+        <span class="brand">
+          PROJECT <b>SWE</b>
+        </span>
+
+        <button
+          id="music-toggle"
+          class="music-toggle"
+          aria-label="Play music"
+          type="button"
+        >
+          <span class="music-dot"></span>
+          <span id="music-label">PLAY OUR SONG</span>
+        </button>
+
+      </nav>
+
+      <div class="hero-center">
+
+        <p class="eyebrow reveal">
+          13 · 12 · 2026
+        </p>
+
+        <h1 class="hero-title reveal">
+          For the girl who<br>
+          <em>makes life softer.</em>
+        </h1>
+
+        <p class="hero-sub reveal">
+          I have something to show you.
+        </p>
+
+        <button
+          class="button button-outline reveal"
+          data-go="chapter-before"
+          type="button"
+        >
+          ENTER MY WORLD <span>↓</span>
+        </button>
+
+      </div>
+
+      <div class="hero-bottom">
+        <span>A STORY IN LITTLE MOMENTS</span>
+        <span>SCROLL TO EXPLORE</span>
+      </div>
+
+    </section>
+
+
+    <!-- ================================= -->
+    <!-- CHAPTER 01: CHILDHOOD             -->
+    <!-- ================================= -->
+
+    <section
+      id="chapter-before"
+      class="chapter chapter-beige screen"
+    >
+
+      <div class="chapter-inner">
+
+        <p class="eyebrow dark reveal">
+          CHAPTER 01 · THE BEGINNING
+        </p>
+
+        <h2 class="dark-title reveal">
+          Before I<br>
+          <em>knew you…</em>
+        </h2>
+
+        <p class="chapter-copy reveal">
+          There was a whole world of little moments
+          that made you who you are.
+          This is where your story begins.
+        </p>
+
+        <div
+          class="photo-grid childhood"
+          id="childhood-grid"
+        ></div>
+
+        <button
+          class="text-link dark-link"
+          data-go="chapter-her"
+          type="button"
+        >
+          AND THEN, YOU GREW INTO YOU <span>→</span>
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================================= -->
+    <!-- CHAPTER 02: HER                   -->
+    <!-- ================================= -->
+
+    <section
+      id="chapter-her"
+      class="chapter chapter-black screen"
+    >
+
+      <div class="chapter-inner">
+
+        <p class="eyebrow reveal">
+          CHAPTER 02 · HER
+        </p>
+
+        <h2 class="light-title reveal">
+          The girl<br>
+          <em>you became.</em>
+        </h2>
+
+        <p class="chapter-copy light-copy reveal">
+          Every version of you deserves to be celebrated.
+          Especially the one standing here today.
+        </p>
+
+        <div
+          class="portrait-grid"
+          id="portrait-grid"
+        ></div>
+
+        <button
+          class="text-link"
+          data-go="chapter-us"
+          type="button"
+        >
+          A LITTLE CLOSER TO US <span>→</span>
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================================= -->
+    <!-- CHAPTER 03: US                    -->
+    <!-- ================================= -->
+
+    <section
+      id="chapter-us"
+      class="chapter chapter-beige screen"
+    >
+
+      <div class="chapter-inner">
+
+        <p class="eyebrow dark reveal">
+          CHAPTER 03 · US
+        </p>
+
+        <h2 class="dark-title reveal">
+          Our little<br>
+          <em>world.</em>
+        </h2>
+
+        <p class="chapter-copy reveal">
+          Not every moment needs a grand occasion.
+          Some of my favourites are simply the ones with you.
+        </p>
+
+        <div
+          class="couple-grid"
+          id="couple-grid"
+        ></div>
+
+        <button
+          class="button button-dark"
+          data-go="letter"
+          type="button"
+        >
+          THERE'S ONE MORE THING <span>↓</span>
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================================= -->
+    <!-- CHAPTER 04: LOVE LETTER           -->
+    <!-- ================================= -->
+
+    <section id="letter" class="letter-section screen">
+
+      <div class="letter-wrap">
+
+        <p class="eyebrow reveal">
+          CHAPTER 04 · A NOTE FOR YOU
+        </p>
+
+        <!-- Envelope -->
+
+        <div
+          class="envelope"
+          id="envelope"
+          role="button"
+          tabindex="0"
+          aria-label="Open the letter"
+        >
+
+          <div class="envelope-back"></div>
+
+          <div class="letter-paper">
+
+            <span class="letter-to">
+              To my favourite person,
+            </span>
+
+            <p>
+              A letter is waiting to be opened.
+            </p>
+
+            <span class="letter-sign">
+              With love, always.
+            </span>
+
+          </div>
+
+          <div class="envelope-flap"></div>
+
+          <div class="envelope-seal">
+            S
+          </div>
+
+        </div>
+
+        <p class="envelope-hint">
+          TAP TO OPEN
+        </p>
+
+
+        <!-- Letter content -->
+
+        <div
+          id="letter-message"
+          class="letter-message"
+          hidden
+        >
+
+          <h2>
+            Dear <em>Swetha(Swathi)</em>
+          </h2>
+
+          <p>Happy Birthday, my love. ❤️</p>
+
+          <p>
+            If I could give you one thing in this world,
+            it would be the ability to see yourself through
+            my eyes. Maybe then you'd understand how special
+            you are to me, how beautiful your little
+            imperfections are, and how much happiness your
+            existence brings into my life.
+          </p>
+
+          <p>
+            I don't know how to put everything I feel into
+            words, but I'll try.
+          </p>
+
+          <p>
+            You came into my life and slowly became a part
+            of my everyday thoughts. Somehow, even the
+            smallest things remind me of you. Your smile,
+            your voice, your little expressions, the way
+            you laugh, and even the silly little moments
+            we share have become memories I never want to lose.
+          </p>
+
+          <p>
+            I may not be perfect at expressing my love.
+            Sometimes I might struggle to find the right
+            words, and sometimes I might not show you just
+            how much you mean to me. But please never doubt
+            this: you are someone I genuinely treasure.
+          </p>
+
+          <p>
+            I wish I could be there for every birthday
+            candle you blow out, every dream you achieve,
+            every difficult day you overcome, and every
+            little victory that makes you smile. I want
+            to celebrate your happiest moments and remind
+            you that you're never alone during the difficult ones.
+          </p>
+
+          <p>
+            As you begin another beautiful year of your life,
+            I hope it brings you endless happiness, good health,
+            peaceful days, wonderful opportunities, and
+            everything your heart has been quietly wishing for.
+          </p>
+
+          <p>
+            Never stop smiling. Never stop dreaming.
+            Never change the beautiful person you are
+            just to fit into someone else's expectations.
+          </p>
+
+          <p>
+            And if life ever gets difficult, remember that
+            somewhere, there's a person who is always wishing
+            the very best for you.
+          </p>
+
+          <p>
+            Thank you for being you. Thank you for the memories,
+            the smiles, the laughter, and all those little
+            moments that mean more to me than you probably realise.
+          </p>
+
+          <p>
+            I don't know what every chapter of our future
+            will look like, but I know that the memories
+            we've made will always have a special place in my heart.
+          </p>
+
+          <p>
+            Happy Birthday, Swe… My Dear, Pondatiii
+          </p>
+
+          <p>
+            May this world be as gentle with you as your
+            presence has been beautiful in my life.
+          </p>
+
+          <p>
+            With all my love,
+          </p>
+
+          <p>
+            Yours, always. ❤️
+          </p>
+
+          <p class="signature">
+            Always yours.
+          </p>
+
+        </div>
+
+
+        <button
+          class="button button-gold"
+          data-go="finale"
+          type="button"
+        >
+          ONE LAST SURPRISE <span>✦</span>
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================================= -->
+    <!-- BIRTHDAY FINALE                   -->
+    <!-- ================================= -->
+
+    <section id="finale" class="finale screen">
+
+      <div class="finale-content">
+
+        <p class="eyebrow reveal">
+          13 DECEMBER 2026
+        </p>
+
+        <div class="sparkle-line">
+          ✦ &nbsp; ✧ &nbsp; ✦
+        </div>
+
+        <h1 class="final-title reveal">
+          Happy Birthday,<br>
+          <em>Swe…</em>
+        </h1>
+
+        <p class="final-copy reveal">
+          May life be as gentle with you as your presence
+          has been with my world.
+        </p>
+
+        <p>
+          Happy Birthday, Swetha… ❤️
+        </p>
+
+        <p>
+          And here we are, at the end of this little journey,
+          but never at the end of the memories I want to make
+          with you.
+        </p>
+
+        <p>
+          I hope this birthday reminds you of how precious
+          you are, how deeply you deserve to be loved, and
+          how beautiful life becomes with you in it.
+        </p>
+
+        <p>
+          If I could pause one moment in time, it would be
+          one of those little moments with you — no special
+          occasion, no perfect setting, just you being you,
+          and me feeling lucky to have you in my world.
+        </p>
+
+        <p>
+          I wish you a lifetime of reasons to smile, dreams
+          that come true, gentle days, warm hugs, and a heart
+          that never forgets how loved it is.
+        </p>
+
+        <p>
+          Thank you for being my favourite thought, my
+          sweetest memory, and a beautiful part of my story.
+        </p>
+
+        <p>
+          One last thing…
+        </p>
+
+        <p>
+          No matter how many birthdays pass, I hope I get
+          to keep wishing you this same happiness, year after year.
+        </p>
+
+        <p>
+          <b>Happy Birthday, my favourite girl.</b>
+        </p>
+
+        <p>
+          <b>With all the love my heart can hold,</b>
+        </p>
+
+        <p>
+          <b>Forever yours. ❤️</b>
+        </p>
+
+        <div class="final-heart">
+          ♡
+        </div>
+
+        <p class="final-sign reveal">
+          A little world, made just for you.
+        </p>
+
+        <button
+          class="text-link"
+          id="replay"
+          type="button"
+        >
+          REPLAY OUR STORY ↺
+        </button>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- ================================= -->
+  <!-- BACKGROUND MUSIC                  -->
+  <!-- ================================= -->
+
+  <div class="youtube-audio" aria-hidden="true">
+
+    <iframe
+      id="youtube-player"
+      width="0"
+      height="0"
+      src="https://www.youtube-nocookie.com/embed/2SiWMD0nKFQ?enablejsapi=1&playsinline=1&rel=0"
+      title="Background music"
+      allow="autoplay; encrypted-media"
+      frameborder="0"
+    ></iframe>
+
+  </div>
+
+
+  <!-- ================================= -->
+  <!-- MAIN JAVASCRIPT                   -->
+  <!-- ================================= -->
+
+  <script src="script.js"></script>
+
+</body>
+</html>
